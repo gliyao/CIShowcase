@@ -64,9 +64,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="CIShowcase" id="HCf-g6-5y5">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="a8F-U9-fjn"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="CIShowcase" id="HCf-g6-5y5"/>
                     <connections>
                         <outlet property="imageView" destination="beR-sh-LJm" id="XHv-Zk-hjm"/>
                         <outlet property="pickerView" destination="45V-PF-FtY" id="BHR-Sh-vu3"/>
