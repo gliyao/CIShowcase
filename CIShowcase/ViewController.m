@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 
 @property (strong, nonatomic) CIImage *originImage;
+@property (strong, nonatomic) CIImage *backgroundImage;
 @property (strong, nonatomic) NSArray *filterCategories;
 @property (strong, nonatomic) NSString *filterName;
 
@@ -29,22 +30,24 @@
     
     _filterCategories = @[
                           @"CICategoryBlur",
-                          @"CICategoryColorAdjustment",
+                          @"CICategoryColorAdjustment", // 顏色調整
                           @"CICategoryColorEffect",
-                          @"CICategoryCompositeOperation",
-                          @"CICategoryDistortionEffect",
+                          @"CICategoryCompositeOperation", // 兩張照片inputBackgroundImage 跟inputImage
+                          @"CICategoryDistortionEffect", // 失真效果
 //                          @"CICategoryGenerator",
                           @"CICategoryGeometryAdjustment",
 //                          @"CICategoryGradient",
-                          @"CICategoryHalftoneEffect",
-                          @"CICategoryReduction",
-                          @"CICategorySharpen",
-                          @"CICategoryStylize",
-                          @"CICategoryTileEffect",
-                          @"CICategoryTransition",
+                          @"CICategoryHalftoneEffect",//半色調
+//                          @"CICategoryReduction",
+                          @"CICategorySharpen", //銳利化
+//                          @"CICategoryStylize",
+//                          @"CICategoryTileEffect",
+//                          @"CICategoryTransition", // 轉場效果
                           ];
     
     _originImage = [[CIImage alloc] initWithImage:[UIImage imageNamed:@"icecream"]];
+    _backgroundImage = [[CIImage alloc] initWithImage:[UIImage imageNamed:@"park"]];
+    
     
     NSString *filterName = [self categoreisOfIndex:0][0];
     [self filterImageWithFilerName:filterName];
@@ -53,22 +56,36 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
-    
-    
 }
 
 - (void)filterImageWithFilerName:(NSString *)filterName {
     
     self.filterName = filterName;
     
-    CIFilter *filter = [CIFilter filterWithName:filterName];
-    [filter setValue:_originImage forKey:kCIInputImageKey];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     
-    NSLog(@"inputKeys = %@, outputKeys = %@", filter.inputKeys, filter.outputKeys);
+        CIFilter *filter = [CIFilter filterWithName:filterName];
+        NSLog(@"inputKeys = %@, outputKeys = %@", filter.inputKeys, filter.outputKeys);
+        
+        [self filter:filter setValue:_originImage forKey:kCIInputImageKey];
+        [self filter:filter setValue:_backgroundImage forKey:kCIInputBackgroundImageKey];
+        
+        
+        CIImage *outputImage = [filter outputImage];
+        CIContext *context = [CIContext contextWithOptions:nil];
+        UIImage *newImage = [UIImage imageWithCGImage:[context createCGImage:outputImage fromRect:outputImage.extent]];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.imageView.image = newImage;
+        });
+    });
+}
+
+- (void)filter:(CIFilter *)filter setValue:(id)value forKey:(NSString *)key {
     
-    UIImage *newImage = [UIImage imageWithCGImage:[[CIContext contextWithOptions:nil] createCGImage:[filter outputImage] fromRect:[filter outputImage].extent]];
-    self.imageView.image = newImage;
+    if ([filter.inputKeys containsObject:key]) {
+        [filter setValue:value forKey:key];
+    }
 }
 
 - (NSArray *)categoreisOfIndex:(NSInteger)index {
@@ -122,7 +139,7 @@
     if(component == 0){
         
         [pickerView reloadComponent:1];
-        [pickerView selectRow:0 inComponent:1 animated:NO];
+        [pickerView selectRow:0 inComponent:1 animated:YES];
     }
     
     NSString *filterName = [self categoreisOfIndex:categoryIndex][filterIndex];
