@@ -11,6 +11,8 @@
 
 @interface CIShowcaseTests : XCTestCase
 
+@property (strong, nonatomic) NSArray *filterCategories;
+
 @end
 
 @implementation CIShowcaseTests
@@ -18,6 +20,23 @@
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    _filterCategories = @[
+                          @"CICategoryBlur",
+                          @"CICategoryColorAdjustment",
+                          @"CICategoryColorEffect",
+                          @"CICategoryCompositeOperation",
+                          @"CICategoryDistortionEffect",
+                          @"CICategoryGenerator",
+                          @"CICategoryGeometryAdjustment",
+                          @"CICategoryGradient",
+                          @"CICategoryHalftoneEffect",
+                          @"CICategoryReduction",
+                          @"CICategorySharpen",
+                          @"CICategoryStylize",
+                          @"CICategoryTileEffect",
+                          @"CICategoryTransition",
+                          ];
 }
 
 - (void)tearDown {
@@ -25,16 +44,22 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // This is an example of a functional test case.
-    XCTAssert(YES, @"Pass");
-}
-
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
+- (void)testShowAllFilterCategories {
+    
+    [_filterCategories enumerateObjectsUsingBlock:^(NSString *category, NSUInteger idx, BOOL *stop) {
+        NSArray *subCategories = [CIFilter filterNamesInCategory:category];
+        NSLog(@"%@", subCategories);
     }];
 }
+
+- (void)testA {
+    
+    NSString *filterCategory = _filterCategories[4];
+    NSString *filterName = [CIFilter filterNamesInCategory:filterCategory][1];
+    CIFilter *filter = [CIFilter filterWithName:filterName];
+    
+    NSLog(@"%@", filter.inputKeys);
+}
+
 
 @end

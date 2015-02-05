@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="CP9-fZ-X04">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--CIShowcase-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +16,84 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icecream" translatesAutoresizingMaskIntoConstraints="NO" id="beR-sh-LJm" userLabel="imageView">
+                                <rect key="frame" x="171" y="80" width="258" height="342"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="beR-sh-LJm" secondAttribute="height" multiplier="125:166" id="cRx-at-amZ"/>
+                                    <constraint firstAttribute="height" constant="332" id="gmO-0v-2Fg"/>
+                                    <constraint firstAttribute="width" constant="250" id="r41-iH-Q2C"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="gmO-0v-2Fg"/>
+                                        <exclude reference="r41-iH-Q2C"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45V-PF-FtY">
+                                <rect key="frame" x="0.0" y="438" width="600" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="162" id="tEL-LC-cB8"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="EPX-0j-2XW"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="7sx-dp-kXs"/>
+                                </connections>
+                            </pickerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="45V-PF-FtY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0l3-t3-fP4"/>
+                            <constraint firstItem="beR-sh-LJm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="16" id="6xt-ke-a10"/>
+                            <constraint firstItem="beR-sh-LJm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qp7-kq-y2i"/>
+                            <constraint firstAttribute="trailing" secondItem="45V-PF-FtY" secondAttribute="trailing" id="W6J-cg-wc9"/>
+                            <constraint firstItem="beR-sh-LJm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="aYb-AL-9xm"/>
+                            <constraint firstAttribute="centerX" secondItem="beR-sh-LJm" secondAttribute="centerX" id="ge3-5y-5Ou"/>
+                            <constraint firstAttribute="bottom" secondItem="beR-sh-LJm" secondAttribute="bottom" id="jCt-UK-UXR"/>
+                            <constraint firstAttribute="trailing" secondItem="beR-sh-LJm" secondAttribute="trailing" id="lbz-NF-6tC"/>
+                            <constraint firstItem="45V-PF-FtY" firstAttribute="top" secondItem="beR-sh-LJm" secondAttribute="bottom" constant="16" id="mqV-tV-QbF"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="45V-PF-FtY" secondAttribute="bottom" id="nm9-RA-55C"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Qp7-kq-y2i"/>
+                                <exclude reference="aYb-AL-9xm"/>
+                                <exclude reference="jCt-UK-UXR"/>
+                                <exclude reference="lbz-NF-6tC"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" title="CIShowcase" id="HCf-g6-5y5"/>
+                    <connections>
+                        <outlet property="imageView" destination="beR-sh-LJm" id="XHv-Zk-hjm"/>
+                        <outlet property="pickerView" destination="45V-PF-FtY" id="BHR-Sh-vu3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="1222" y="575"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="05D-aN-Sae">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CP9-fZ-X04" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WUO-Cf-lQ3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="nDi-jU-giN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aMz-0I-89g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="536" y="575"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icecream" width="250" height="332"/>
+    </resources>
 </document>
