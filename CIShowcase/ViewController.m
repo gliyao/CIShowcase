@@ -119,19 +119,6 @@
 }
 
 #pragma mark - UIPickerViewDelegate
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
-    if(component == 0){
-        
-        NSString *categoryName = self.filterCategories[row];
-        return [categoryName substringFromIndex:10];
-    }
-    
-    NSInteger selectedCategoryIndex = [pickerView selectedRowInComponent:0];
-    NSString *subCategoryName = [self categoreisOfIndex:selectedCategoryIndex][row];
-    return [subCategoryName substringFromIndex:2];
-}
-
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     NSInteger categoryIndex = (component == 0)? row: [pickerView selectedRowInComponent:0];
@@ -146,7 +133,7 @@
     [self filterImageWithFilerName:filterName];
 }
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view {
     UILabel *textLabel = (UILabel *)view;
     if (!textLabel){
         textLabel = [[UILabel alloc] init];
