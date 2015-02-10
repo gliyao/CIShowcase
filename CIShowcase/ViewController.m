@@ -146,6 +146,28 @@
     [self filterImageWithFilerName:filterName];
 }
 
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    UILabel *textLabel = (UILabel *)view;
+    if (!textLabel){
+        textLabel = [[UILabel alloc] init];
+        // Setup label properties - frame, font, colors etc
+        textLabel.font = [UIFont systemFontOfSize:14];
+    }
+    // Fill the label text here
+    
+    if(component == 0){
+        
+        NSString *categoryName = self.filterCategories[row];
+        textLabel.text = [categoryName substringFromIndex:10];
+        return textLabel;
+    }
+    
+    NSInteger selectedCategoryIndex = [pickerView selectedRowInComponent:0];
+    NSString *subCategoryName = [self categoreisOfIndex:selectedCategoryIndex][row];
+    textLabel.text =  [subCategoryName substringFromIndex:2];
+    return textLabel;
+}
+
 @end
 
 
